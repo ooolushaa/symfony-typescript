@@ -59,7 +59,7 @@ class Generator {
 			}
 
 			if (count($lines) > 0) {
-				$lines[] = "";
+				$lines[] = '';
 			}
 
 			$lines[] = 'export default interface ' . $entity->getTypescriptName() . ' {';
@@ -100,7 +100,7 @@ class Generator {
 			}
 
 			if (count($lines) > 0) {
-				$lines[] = "";
+				$lines[] = '';
 			}
 
 			$lines[] = 'export default interface ' . $entity->getTypescriptName() . ' {';

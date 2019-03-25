@@ -2,6 +2,7 @@
 
 namespace SymfonyTypescriptBundle;
 
+use Normalizer;
 use SymfonyTypescriptBundle\Exception\CanNotFindClassFileException;
 use SymfonyTypescriptBundle\Parser\AbstractEntity;
 use SymfonyTypescriptBundle\Parser\ArrayProperty;
@@ -27,8 +28,8 @@ use Symfony\Component\Finder\Finder;
 
 class Parser {
 
-	private const DATA_MODEL_INTERFACE = "DataModelInterface";
-	private const ABSTRACT_ENUM = "AbstractEnum";
+	private const DATA_MODEL_INTERFACE = 'DataModelInterface';
+	private const ABSTRACT_ENUM = 'AbstractEnum';
 
 	private $projectDir;
 
@@ -172,17 +173,17 @@ class Parser {
 
 	protected function getPropertyType(string $docBlockText): string
 	{
-		$startsAt = strpos($docBlockText, "@var ") + strlen("@var ");
-		$endsAt = strpos($docBlockText, PHP_EOL, $startsAt);
-		$result = substr($docBlockText, $startsAt, $endsAt - $startsAt);
+        if (preg_match('/@var (.*?)\s+/', $docBlockText, $match) !== 1) {
+            throw new \Exception("Can'not parse property type from docblock: \n" . $docBlockText);
+        }
 
-		return $this->cleanTypeString($result);
+		return $this->cleanTypeString($match[1]);
 	}
 
 	protected function cleanTypeString(string $type): string
 	{
-		if (strpos($type, "|null") !== false) {
-			return str_replace("|null", "", $type);
+		if (strpos($type, '|null') !== false) {
+			return str_replace('|null', '', $type);
 		}
 
 		return $type;
@@ -190,13 +191,13 @@ class Parser {
 
 	protected function propertyHasNullable(string $docBlockText): bool
 	{
-		return strpos($docBlockText, "|null") !== false || strpos($docBlockText, "null|") !== false;
+		return strpos($docBlockText, '|null') !== false || strpos($docBlockText, 'null|') !== false;
 	}
 
 	protected function parseArrayType(string $type): ?string
 	{
-		if (strpos($type, "[]") !== false) {
-			return str_replace("[]", "", $type);
+		if (strpos($type, '[]') !== false) {
+			return str_replace('[]', '', $type);
 		}
 
 		return null;
@@ -210,7 +211,7 @@ class Parser {
 					if ($stmtStmts instanceof Return_) {
 						if ($stmtStmts->expr instanceof PropertyFetch) {
 							if ($stmtStmts->expr->var instanceof Variable) {
-								if ($stmtStmts->expr->var->name === "this") {
+								if ($stmtStmts->expr->var->name === 'this') {
 									if ($stmtStmts->expr->name instanceof Identifier) {
 										if ($stmtStmts->expr->name->name === $propertyName) {
 											return $stmt;
