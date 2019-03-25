@@ -18,9 +18,9 @@ use Symfony\Component\Finder\Finder;
 
 class Generator {
 
-	private const DATA_MODELS_FOLDER = '/src/SymfonyTypeScriptBundle/App/interface/dataModel';
-	private const OBJECT_FOLDER = '/src/SymfonyTypeScriptBundle/App/interface';
-	private const ENUM_FOLDER = '/src/SymfonyTypeScriptBundle/App/interface/enum';
+	private const DATA_MODELS_FOLDER = '/src/SymfonyTypescriptBundle/App/interface/dataModel';
+	private const OBJECT_FOLDER = '/src/SymfonyTypescriptBundle/App/interface';
+	private const ENUM_FOLDER = '/src/SymfonyTypescriptBundle/App/interface/enum';
 
 	private $projectDir;
 
@@ -124,7 +124,7 @@ class Generator {
 	{
 		$finder = new Finder();
 
-		$dataModelDir = $this->projectDir . '/src/SymfonyTypeScriptBundle/App/interface';
+		$dataModelDir = $this->projectDir . '/src/SymfonyTypescriptBundle/App/interface';
 
 		$finder->files()->in([$dataModelDir])->name($file . '.ts');
 
