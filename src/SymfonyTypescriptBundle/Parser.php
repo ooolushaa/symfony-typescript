@@ -173,7 +173,7 @@ class Parser {
 	protected function getPropertyType(string $docBlockText): string
 	{
 		$startsAt = strpos($docBlockText, "@var ") + strlen("@var ");
-		$endsAt = strpos($docBlockText, "\n", $startsAt);
+		$endsAt = strpos($docBlockText, PHP_EOL, $startsAt);
 		$result = substr($docBlockText, $startsAt, $endsAt - $startsAt);
 
 		return $this->cleanTypeString($result);
