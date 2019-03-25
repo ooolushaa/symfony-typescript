@@ -231,7 +231,7 @@ class Parser {
 	{
 		$finder = new Finder();
 
-		$dataModelDir = $this->projectDir . '/src/SymfonyTypescriptBundle';
+		$dataModelDir = realpath($this->projectDir . '/src/SymfonyTypescriptBundle');
 
 		$finder->files()->in([$dataModelDir])->name($file . '.php');
 

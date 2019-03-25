@@ -124,7 +124,7 @@ class Generator {
 	{
 		$finder = new Finder();
 
-		$dataModelDir = $this->projectDir . '/src/SymfonyTypescriptBundle/App/interface';
+		$dataModelDir = realpath($this->projectDir . '/src/SymfonyTypescriptBundle/App/interface');
 
 		$finder->files()->in([$dataModelDir])->name($file . '.ts');
 
@@ -139,7 +139,7 @@ class Generator {
 	{
 		$fileSystem = new Filesystem();
 
-		$fileSystem->dumpFile($this->projectDir . $folder . '/' . $name, $text);
+		$fileSystem->dumpFile(realpath($this->projectDir . $folder) . DIRECTORY_SEPARATOR  . $name, $text);
 	}
 
 	protected function getNullableString(AbstractProperty $property)
